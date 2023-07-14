@@ -94,50 +94,36 @@ class _TextAreaState extends State<TextArea> {
                   final buttonSize = button?.size;
 
                   if (buttonPosition != null && overlayPosition != null && buttonSize != null) {
-                    // final overlayPositionAdjusted = Offset(
-                    //   buttonPosition.dx - overlayPosition.dx,
-                    //   buttonPosition.dy - overlayPosition.dy,
-                    // );
-
                     // Create an overlay entry
                     _overlayEntry = OverlayEntry(
                       builder: (context) {
-                        return Material(
-                          color: Colors.transparent,
-                          child: GestureDetector(
-                            onTap: () => _closeOverlay(),
-                            child: Stack(
-                              children: [
-                                Positioned.fill(
-                                  child: Container(
-                                    color: Colors.black.withOpacity(0.7),
-                                  ),
+                        return GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: () => _closeOverlay(),
+                          child: CompositedTransformFollower(
+                            link: _layerLink,
+                            targetAnchor: Alignment.bottomCenter,
+                            followerAnchor: Alignment.bottomCenter,
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Container(
+                                width: buttonSize.width * 2,
+                                padding: const EdgeInsets.all(12.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10.0),
                                 ),
-                                CompositedTransformFollower(
-                                  link: _layerLink,
-                                  targetAnchor: Alignment.bottomCenter,
-                                  followerAnchor: Alignment.bottomCenter,
-                                  // offset: const Offset(0, -10),
-                                  child: Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      width: buttonSize.width * 2,
-                                      padding: const EdgeInsets.all(12.0),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10.0),
-                                      ),
-                                      child: Text(
-                                        _formattedText,
-                                        textAlign: TextAlign.center,
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                        ),
-                                      ),
+                                child: Material(
+                                  color: Colors.transparent,
+                                  child: Text(
+                                    _formattedText,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                      fontSize: 18,
                                     ),
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         );
