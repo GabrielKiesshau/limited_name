@@ -94,10 +94,10 @@ class _TextAreaState extends State<TextArea> {
                   final buttonSize = button?.size;
 
                   if (buttonPosition != null && overlayPosition != null && buttonSize != null) {
-                    final overlayPositionAdjusted = Offset(
-                      buttonPosition.dx - overlayPosition.dx,
-                      buttonPosition.dy - overlayPosition.dy,
-                    );
+                    // final overlayPositionAdjusted = Offset(
+                    //   buttonPosition.dx - overlayPosition.dx,
+                    //   buttonPosition.dy - overlayPosition.dy,
+                    // );
 
                     // Create an overlay entry
                     _overlayEntry = OverlayEntry(
