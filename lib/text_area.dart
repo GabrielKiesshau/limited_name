@@ -17,9 +17,10 @@ class TextArea extends StatefulWidget {
 
 class _TextAreaState extends State<TextArea> {
   bool _isOverflowing = false;
-  OverlayEntry? overlayEntry;
+  OverlayEntry? _overlayEntry;
+  final _layerLink = LayerLink();
 
-  String formattedText = '';
+  String _formattedText = '';
 
   @override
   void initState() {
@@ -29,7 +30,27 @@ class _TextAreaState extends State<TextArea> {
 
     final parsedValue = int.tryParse(widget.text);
 
-    formattedText = formatter.format(parsedValue);
+    _formattedText = formatter.format(parsedValue);
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
+  }
+
+  @override
+  void dispose() {
+    _closeOverlay();
+    super.dispose();
+  }
+
+  void _closeOverlay() {
+    if (_overlayEntry != null) {
+      _overlayEntry?.remove();
+      _overlayEntry = null;
+    }
   }
 
   @override
@@ -41,7 +62,7 @@ class _TextAreaState extends State<TextArea> {
         child: LayoutBuilder(
           builder: (context, constraints) {
             final textSpan = TextSpan(
-              text: formattedText,
+              text: _formattedText,
               style: widget.style,
             );
           
@@ -64,7 +85,7 @@ class _TextAreaState extends State<TextArea> {
                 splashColor: Colors.green,
                 borderRadius: BorderRadius.circular(10),
                 onTap: () {
-                  if (overlayEntry != null) return; // Prevent creating multiple overlays
+                  if (_overlayEntry != null) return; // Prevent creating multiple overlays
 
                   final RenderBox? button = context.findRenderObject() as RenderBox?;
                   final RenderBox? overlay = Overlay.of(context)?.context.findRenderObject() as RenderBox?;
@@ -79,15 +100,12 @@ class _TextAreaState extends State<TextArea> {
                     );
 
                     // Create an overlay entry
-                    overlayEntry = OverlayEntry(
+                    _overlayEntry = OverlayEntry(
                       builder: (context) {
                         return Material(
                           color: Colors.transparent,
                           child: GestureDetector(
-                            onTap: () {
-                              overlayEntry?.remove();
-                              overlayEntry = null;
-                            },
+                            onTap: () => _closeOverlay(),
                             child: Stack(
                               children: [
                                 Positioned.fill(
@@ -107,7 +125,7 @@ class _TextAreaState extends State<TextArea> {
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Text(
-                                      formattedText,
+                                      _formattedText,
                                       style: const TextStyle(
                                         fontSize: 18,
                                       ),
@@ -122,13 +140,13 @@ class _TextAreaState extends State<TextArea> {
                     );
 
                     // Add the overlay entry to the overlay
-                    Overlay.of(context)?.insert(overlayEntry!);
+                    Overlay.of(context)?.insert(_overlayEntry!);
                   }
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    formattedText,
+                    _formattedText,
                     // style: widget.style,
                     style: widget.style.copyWith(color: Colors.blue),
                     overflow: TextOverflow.ellipsis,
@@ -141,7 +159,7 @@ class _TextAreaState extends State<TextArea> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                formattedText,
+                _formattedText,
                 style: widget.style,
               ),
             );
