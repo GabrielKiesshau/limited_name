@@ -1,50 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:limited_name/text_area.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
+class MyHomePage extends StatelessWidget {
   final String title;
 
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  const MyHomePage({super.key, required this.title});
+    
+  final _itemList = const [
+    '242343',
+    '11111111111111111',
+    '111111111111111111',
+    '1111111111111111111',
+    '5',
+    '7777777777777777777',
+    '8888888888888888888',
+    '57454',
+    '9223372036854775807',
+    '242343',
+    '11111111111111111',
+    '111111111111111111',
+    '1111111111111111111',
+    '5',
+    '7777777777777777777',
+    '8888888888888888888',
+    '57454',
+    '9223372036854775807',
+    '242343',
+    '11111111111111111',
+    '111111111111111111',
+    '1111111111111111111',
+    '5',
+    '7777777777777777777',
+    '8888888888888888888',
+    '57454',
+    '9223372036854775807',
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(title),
+        elevation: 0,
       ),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: const [
-              TextArea(text: '111111111111'),
-              TextArea(text: '111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-              TextArea(text: '111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'),
-            ],
+        child: ListView.separated(
+          itemCount: _itemList.length,
+          padding: const EdgeInsets.symmetric(horizontal: 170.0),
+          separatorBuilder: (context, index) => const SizedBox(height: 20),
+          itemBuilder: (context, index) => TextArea(
+            _itemList[index],
+            style: const TextStyle(
+              fontSize: 12,
+            ),
           ),
         ),
       )
