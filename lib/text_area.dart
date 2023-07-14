@@ -113,21 +113,26 @@ class _TextAreaState extends State<TextArea> {
                                     color: Colors.black.withOpacity(0.7),
                                   ),
                                 ),
-                                Positioned(
-                                  left: overlayPositionAdjusted.dx - buttonSize.width / 2,
-                                  top: overlayPositionAdjusted.dy + buttonSize.height / 2,
-                                  child: Container(
-                                    width: buttonSize.width * 2,
-                                    padding: const EdgeInsets.all(12.0),
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Text(
-                                      _formattedText,
-                                      style: const TextStyle(
-                                        fontSize: 18,
+                                CompositedTransformFollower(
+                                  link: _layerLink,
+                                  targetAnchor: Alignment.bottomCenter,
+                                  followerAnchor: Alignment.bottomCenter,
+                                  // offset: const Offset(0, -10),
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Container(
+                                      width: buttonSize.width * 2,
+                                      padding: const EdgeInsets.all(12.0),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      child: Text(
+                                        _formattedText,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          fontSize: 18,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -145,11 +150,14 @@ class _TextAreaState extends State<TextArea> {
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    _formattedText,
-                    // style: widget.style,
-                    style: widget.style.copyWith(color: Colors.blue),
-                    overflow: TextOverflow.ellipsis,
+                  child: CompositedTransformTarget(
+                    link: _layerLink,
+                    child: Text(
+                      _formattedText,
+                      // style: widget.style,
+                      style: widget.style.copyWith(color: Colors.blue),
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
               );
