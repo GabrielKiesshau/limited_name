@@ -129,7 +129,8 @@ class _TextAreaState extends State<TextArea> {
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
                     formattedText,
-                    style: widget.style,
+                    // style: widget.style,
+                    style: widget.style.copyWith(color: Colors.blue),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -141,8 +142,7 @@ class _TextAreaState extends State<TextArea> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 formattedText,
-                // style: widget.style,
-                style: const TextStyle(color: Colors.red),
+                style: widget.style,
               ),
             );
           },
