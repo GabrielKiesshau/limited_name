@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:limited_name/text_area.dart';
 
-class MyHomePage extends StatelessWidget {
+class TextListPage extends StatelessWidget {
   final String title;
 
-  const MyHomePage({super.key, required this.title});
+  const TextListPage({super.key, required this.title});
     
   final _itemList = const [
     '242343',

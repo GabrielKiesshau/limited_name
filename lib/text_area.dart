@@ -100,31 +100,47 @@ class _TextAreaState extends State<TextArea> {
                         return GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: () => _closeOverlay(),
-                          child: CompositedTransformFollower(
-                            link: _layerLink,
-                            targetAnchor: Alignment.bottomCenter,
-                            followerAnchor: Alignment.bottomCenter,
-                            child: Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                width: buttonSize.width * 2,
-                                padding: const EdgeInsets.all(12.0),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                ),
-                                child: Material(
-                                  color: Colors.transparent,
-                                  child: Text(
-                                    _formattedText,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                      fontSize: 18,
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                top: kToolbarHeight,
+                                left: 0,
+                                child: SafeArea(
+                                  child: ClipRRect(
+                                    child: SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: MediaQuery.of(context).size.height,
+                                      child: CompositedTransformFollower(
+                                        link: _layerLink,
+                                        targetAnchor: Alignment.bottomCenter,
+                                        followerAnchor: Alignment.bottomCenter,
+                                        child: Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Container(
+                                            width: buttonSize.width * 2,
+                                            padding: const EdgeInsets.all(12.0),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                            child: Material(
+                                              color: Colors.transparent,
+                                              child: Text(
+                                                _formattedText,
+                                                textAlign: TextAlign.center,
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
+                            ],
                           ),
                         );
                       },
@@ -140,7 +156,6 @@ class _TextAreaState extends State<TextArea> {
                     link: _layerLink,
                     child: Text(
                       _formattedText,
-                      // style: widget.style,
                       style: widget.style.copyWith(color: Colors.blue),
                       overflow: TextOverflow.ellipsis,
                     ),
