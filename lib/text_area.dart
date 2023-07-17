@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart' as intl;
 
 class TextArea extends StatefulWidget {
-  final String text;
+  final int score;
   final TextStyle style;
 
   const TextArea(
-    this.text, {
+    this.score, {
     super.key,
     required this.style,
   });
@@ -25,12 +25,15 @@ class _TextAreaState extends State<TextArea> {
   @override
   void initState() {
     super.initState();
+    _formatScore();
+  }
 
-    final formatter = intl.NumberFormat('#,###,000');
+  void _formatScore() {
+    final formatter = intl.NumberFormat('#,###', 'pt_BR');
+    final formattedScore = formatter.format(widget.score);
+    final suffix = (widget.score > 1) ? 'pts' : 'pt';
 
-    final parsedValue = int.tryParse(widget.text);
-
-    _formattedText = formatter.format(parsedValue);
+    _formattedText = '$formattedScore $suffix';
   }
 
   @override
