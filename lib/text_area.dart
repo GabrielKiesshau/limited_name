@@ -16,7 +16,7 @@ class TextArea extends StatefulWidget {
 }
 
 class _TextAreaState extends State<TextArea> {
-  bool _isOverflowing = false;
+  // bool _isOverflowing = false;
   OverlayEntry? _overlayEntry;
   final _layerLink = LayerLink();
 
@@ -56,6 +56,22 @@ class _TextAreaState extends State<TextArea> {
     }
   }
 
+  bool _isOverflowing(double width) {
+    final textSpan = TextSpan(
+      text: _formattedText,
+      style: widget.style,
+    );
+    
+    final textPainter = TextPainter(
+      text: textSpan,
+      maxLines: 1,
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout(maxWidth: width);
+    
+    return textPainter.didExceedMaxLines;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -64,26 +80,9 @@ class _TextAreaState extends State<TextArea> {
       child: Center(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final textSpan = TextSpan(
-              text: _formattedText,
-              style: widget.style,
-            );
-          
-            final textPainter = TextPainter(
-              text: textSpan,
-              maxLines: 1,
-              textDirection: TextDirection.ltr,
-            );
-            textPainter.layout(maxWidth: constraints.maxWidth);
-          
-            final newOverflowState = textPainter.didExceedMaxLines;
-            if (newOverflowState != _isOverflowing) {
-              // Overflow state has changed
-              _isOverflowing = newOverflowState;
-            }
-          
-            if (_isOverflowing) {
-              // Text overflowed
+            final isOverflowing = _isOverflowing(constraints.maxWidth);
+
+            if (isOverflowing) {
               return InkWell(
                 splashColor: Colors.green,
                 borderRadius: BorderRadius.circular(10),
@@ -97,7 +96,6 @@ class _TextAreaState extends State<TextArea> {
                   final buttonSize = button?.size;
 
                   if (buttonPosition != null && overlayPosition != null && buttonSize != null) {
-                    // Create an overlay entry
                     _overlayEntry = OverlayEntry(
                       builder: (context) {
                         return GestureDetector(
@@ -166,8 +164,7 @@ class _TextAreaState extends State<TextArea> {
                 ),
               );
             }
-          
-            // Text fits within the available space
+
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
