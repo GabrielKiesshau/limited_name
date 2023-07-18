@@ -44,16 +44,20 @@ class TextListPage extends StatelessWidget {
         elevation: 0,
       ),
       body: Center(
-        child: ListView.separated(
-          itemCount: _itemList.length,
-          padding: const EdgeInsets.symmetric(horizontal: 170.0),
-          separatorBuilder: (context, index) => const SizedBox(height: 20),
-          itemBuilder: (context, index) => TextArea(
-            _itemList[index],
-            style: const TextStyle(
-              fontSize: 12,
-            ),
-          ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return ListView.separated(
+              itemCount: _itemList.length,
+              padding: EdgeInsets.symmetric(horizontal: constraints.maxWidth * 0.39),
+              separatorBuilder: (context, index) => const SizedBox(height: 20),
+              itemBuilder: (context, index) => TextArea(
+                _itemList[index],
+                style: const TextStyle(
+                  fontSize: 12,
+                ),
+              ),
+            );
+          }
         ),
       )
     );

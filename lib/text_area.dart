@@ -80,7 +80,13 @@ class _TextAreaState extends State<TextArea> {
       child: Center(
         child: LayoutBuilder(
           builder: (context, constraints) {
-            final isOverflowing = _isOverflowing(constraints.maxWidth);
+            const padding = EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 12.0,
+            );
+            final isOverflowing = _isOverflowing(
+              constraints.maxWidth - padding.left - padding.right,
+            );
 
             if (isOverflowing) {
               return InkWell(
@@ -152,7 +158,7 @@ class _TextAreaState extends State<TextArea> {
                   }
                 },
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: padding,
                   child: CompositedTransformTarget(
                     link: _layerLink,
                     child: Text(
@@ -166,7 +172,7 @@ class _TextAreaState extends State<TextArea> {
             }
 
             return Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: padding,
               child: Text(
                 _formattedText,
                 style: widget.style,
