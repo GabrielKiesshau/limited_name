@@ -16,7 +16,6 @@ class TextArea extends StatefulWidget {
 }
 
 class _TextAreaState extends State<TextArea> {
-  // bool _isOverflowing = false;
   OverlayEntry? _overlayEntry;
   final _layerLink = LayerLink();
 
