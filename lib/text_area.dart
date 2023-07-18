@@ -121,6 +121,7 @@ class _TextAreaState extends State<TextArea> {
                                         link: _layerLink,
                                         targetAnchor: Alignment.bottomCenter,
                                         followerAnchor: Alignment.bottomCenter,
+                                        offset: const Offset(0, -20),
                                         child: Align(
                                           alignment: Alignment.bottomCenter,
                                           child: Container(
@@ -157,10 +158,10 @@ class _TextAreaState extends State<TextArea> {
                     Overlay.of(context)?.insert(_overlayEntry!);
                   }
                 },
-                child: Padding(
-                  padding: padding,
-                  child: CompositedTransformTarget(
-                    link: _layerLink,
+                child: CompositedTransformTarget(
+                  link: _layerLink,
+                  child: Padding(
+                    padding: padding,
                     child: Text(
                       _formattedText,
                       style: widget.style.copyWith(color: Colors.blue),
